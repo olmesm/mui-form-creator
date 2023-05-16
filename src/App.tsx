@@ -6,7 +6,8 @@ import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
 import { DndList } from "./components/dnd-list";
-import { Button } from "@mui/material";
+import { Box, IconButton, TextField } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 export type Item = {
   id: number;
@@ -17,7 +18,7 @@ type State = Item[];
 type Action =
   | { type: "move"; payload: { dragIndex: number; hoverIndex: number } }
   | { type: "remove"; payload: { id: number } }
-  | { type: "add" };
+  | { type: "add"; payload: { text: string } };
 
 const INITIAL_STATE: State = [
   {
@@ -41,7 +42,7 @@ const reducer = (state: State, action: Action): State => {
         $push: [
           {
             id: highestIndex,
-            text: "New Item",
+            text: action.payload.text,
           } as Item,
         ],
       });
@@ -77,9 +78,39 @@ export const Component = () => {
 
   return (
     <div>
-      <Button variant="outlined" onClick={() => dispatch({ type: "add" })}>
-        Add
-      </Button>
+      <Box
+        component={"form"}
+        sx={{
+          "& > :not(style)": { m: 1, width: "25ch" },
+        }}
+        noValidate
+        autoComplete="off"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+
+          dispatch({
+            type: "add",
+            payload: Object.fromEntries(formData.entries()) as { text: string },
+          });
+
+          e.currentTarget.reset();
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <TextField label="New Card" variant="outlined" name="text" />
+
+          <IconButton aria-label="add" type="submit">
+            <AddCircleIcon fontSize="inherit" />
+          </IconButton>
+        </div>
+      </Box>
 
       <DndList
         cards={state}
