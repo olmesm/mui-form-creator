@@ -1,10 +1,14 @@
 import update from "immutability-helper";
 import { useReducer } from "react";
 import AceEditor from "react-ace";
+import { config } from "ace-builds/src-noconflict/ace";
+import jsonWorkerUrl from "ace-builds/src-noconflict/worker-json?url";
+config.setModuleUrl("ace/mode/json_worker", jsonWorkerUrl);
 
-import "ace-builds/src-noconflict/mode-json";
 import "ace-builds/src-noconflict/theme-github";
 import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/mode-json";
+
 import { DndList } from "./components/dnd-list";
 import { Box, IconButton, TextField } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
