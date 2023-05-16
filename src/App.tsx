@@ -104,7 +104,7 @@ export const Component = () => {
             alignItems: "center",
           }}
         >
-          <TextField label="New Card" variant="outlined" name="text" />
+          <TextField label="New Field" variant="outlined" name="text" />
 
           <IconButton aria-label="add" type="submit">
             <AddCircleIcon fontSize="inherit" />
@@ -128,7 +128,6 @@ export const Component = () => {
         mode="json"
         theme="github"
         value={JSON.stringify(state, null, 2)}
-        name="UNIQUE_ID_OF_DIV"
         editorProps={{ $blockScrolling: true }}
       />
     </div>
