@@ -1,3 +1,5 @@
+import { IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import type { Identifier, XYCoord } from "dnd-core";
 import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
@@ -12,6 +14,9 @@ const style = {
   marginBottom: ".5rem",
   backgroundColor: "white",
   cursor: "move",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
 };
 
 export interface CardProps {
@@ -19,6 +24,7 @@ export interface CardProps {
   text: string;
   index: number;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
+  removeCard: () => void;
 }
 
 interface DragItem {
@@ -27,7 +33,13 @@ interface DragItem {
   type: string;
 }
 
-export const Card = ({ id, text, index, moveCard }: CardProps): JSX.Element => {
+export const Card = ({
+  id,
+  text,
+  index,
+  moveCard,
+  removeCard,
+}: CardProps): JSX.Element => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<
     DragItem,
@@ -106,6 +118,9 @@ export const Card = ({ id, text, index, moveCard }: CardProps): JSX.Element => {
   return (
     <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
       {text}
+      <IconButton aria-label="delete" onClick={removeCard}>
+        <DeleteIcon />
+      </IconButton>
     </div>
   );
 };

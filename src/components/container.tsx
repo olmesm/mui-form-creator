@@ -8,9 +8,14 @@ const style = {
 export interface Props {
   cards: Item[];
   setCards: (payload: { dragIndex: number; hoverIndex: number }) => void;
+  removeCard: (payload: { id: number }) => void;
 }
 
-export const Container = ({ cards, setCards }: Props): JSX.Element => {
+export const Container = ({
+  cards,
+  setCards,
+  removeCard,
+}: Props): JSX.Element => {
   const moveCard = (dragIndex: number, hoverIndex: number) =>
     setCards({ dragIndex, hoverIndex });
 
@@ -24,6 +29,7 @@ export const Container = ({ cards, setCards }: Props): JSX.Element => {
             id={card.id}
             text={card.text}
             moveCard={moveCard}
+            removeCard={() => removeCard({ id: card.id })}
           />
         ))}
       </div>
