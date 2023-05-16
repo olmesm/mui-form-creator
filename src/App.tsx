@@ -23,11 +23,11 @@ type Action =
 const INITIAL_STATE: State = [
   {
     id: 1,
-    text: "Write a cool JS library",
+    text: "row_index",
   },
   {
     id: 2,
-    text: "Make it generic enough",
+    text: "card_title",
   },
 ];
 
