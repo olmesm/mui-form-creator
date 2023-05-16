@@ -95,13 +95,14 @@ export const Card = ({ id, text, index, moveCard }: CardProps): JSX.Element => {
     item: () => {
       return { id, index };
     },
-    collect: (monitor: any) => ({
+    collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
 
   const opacity = isDragging ? 0 : 1;
   drag(drop(ref));
+
   return (
     <div ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
       {text}
